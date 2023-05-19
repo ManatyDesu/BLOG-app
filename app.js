@@ -44,4 +44,37 @@ app.get('/list', (req, res) => {
     res.render('list.ejs');
 })
 
+// list.ejsから'/past'をリクエストされた時に、past_list.ejsをレスポンス
+app.get('/past', (req, res) => {
+    connection.query(
+        // past_articles Databaseから全ての情報を取得
+        'select * from past_articles',
+        (error, results) => {
+            res.render('past_list.ejs', {articles: results});
+        }
+    )
+})
+
+// list.ejsから'/current'をリクエストされた時に、current_list.ejsをレスポンス
+app.get('/current', (req, res) => {
+    connection.query(
+        // current_articles Databaseから全ての情報を取得
+        'select * from current_articles',
+        (error, results) => {
+            res.render('current_list.ejs', {articles: results});
+        }
+    )
+})
+
+// list.ejsから'/future'をリクエストされた時に、future_list.ejsをレスポンス
+app.get('/future', (req, res) => {
+    connection.query(
+        // future_articles Databaseから全ての情報を取得
+        'select * from future_articles',
+        (error, results) => {
+            res.render('future_list.ejs', {articles: results});
+        }
+    )
+})
+
 app.listen(4000)
