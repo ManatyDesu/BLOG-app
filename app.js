@@ -77,4 +77,40 @@ app.get('/future', (req, res) => {
     )
 })
 
+// past_list.ejsから'/argicle_past/:id'をリクエストされた時に、ariticle.ejsをレスポンス
+app.get('/article_past/:id', (req, res) => {
+    const id = req.params.id;
+    connection.query(
+        'select * from past_articles where id=?',
+        [id],
+        (error, results) => {
+            res.render('article.ejs', { article: results[0] });
+        }
+    )
+})
+
+// current_list.ejsから'/argicle_past/:id'をリクエストされた時に、ariticle.ejsをレスポンス
+app.get('/article_current/:id', (req, res) => {
+    const id = req.params.id;
+    connection.query(
+        'select * from current_articles where id=?',
+        [id],
+        (error, results) => {
+            res.render('article.ejs', { article: results[0] });
+        }
+    )
+})
+
+// future_list.ejsから'/argicle_past/:id'をリクエストされた時に、ariticle.ejsをレスポンス
+app.get('/article_future/:id', (req, res) => {
+    const id = req.params.id;
+    connection.query(
+        'select * from future_articles where id=?',
+        [id],
+        (error, results) => {
+            res.render('article.ejs', { article: results[0] });
+        }
+    )
+})
+
 app.listen(4000)
