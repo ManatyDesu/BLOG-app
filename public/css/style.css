@@ -1,0 +1,54 @@
+* {
+    font-family: 'Noto Serif JP', serif;
+}
+
+a {
+    text-decoration: none;
+}
+
+/* home.ejs */
+.home-container {
+    height: 760px;
+    text-align: center;
+    margin: 0 auto;
+    background-color: black;
+    color: whitesmoke;
+}
+
+.home-description {
+    padding-top: 160px;
+    text-align: center;
+}
+
+.home-description span {
+    border-bottom: 1px solid whitesmoke;
+    font-weight: bold;
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    font-size: 18px;
+    font-weight: bold;
+    border: 1.5px solid whitesmoke;
+    border-radius: 10px;
+    color: rgba(207, 71, 96, 0.8);
+    height: 54px;
+    padding: 0px 50px;
+    margin-bottom: 10px;
+}
+
+.home-btn {
+    margin-top: 30px;
+    margin-bottom: 5px;
+}
+
+.home-btn:hover {
+    border: 1.5px solid whitesmoke;
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.home-btn:active {
+    position: relative;
+    top: 3px;
+}
