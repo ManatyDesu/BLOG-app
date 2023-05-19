@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>BLOG</title>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.4.0/css/all.css">
+        <link rel="stylesheet" href="/css/style.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@200&display=swap" rel="stylesheet">
+    </head>
+    <body class="article-body">
+        <div class="article">
+            <div class="article-container">
+                <h1><%= article.title %></h1>
+                <% if(locals.isLoggedIn) {%>
+                    <br><%= article.content %></br>
+                <% } else { %>
+                    <% if(article.category === 'limited') {%>
+                        <div class="article-container-container">
+                            <h2 class="limited-content">制限のある記事です。ログインしないと閲覧できません。</h2>
+                            <a href="/login" class="limited-login">ログイン</a>
+                        </div>
+                    <% } else if(article.category === 'all') { %>
+                        <p><%= article.content %></p>
+                    <% } %>
+                <% } %>    
+            </div>
+            <a href="/list">記事一覧に戻る</a>
+        </div>
+    </body>
+</html>
