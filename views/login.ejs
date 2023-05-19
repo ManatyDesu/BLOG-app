@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>BLOG</title>
+        <link rel="stylesheet" href="/css/style.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@200&display=swap" rel="stylesheet">
+    </head>
+    <body>
+        <main>
+            <div class="panel">
+                <% if(errors.length > 0) { %>
+                    <ul class="errors">
+                        <% errors.forEach(error => { %>
+                            <li><%= error %></li>
+                        <% }); %>
+                    </ul>
+                <% } %>
+            </div>
+            <div class="login-container">
+                <div class="login-form">
+                    <form action="/login" method="post">
+                        <p>メールアドレス</p>
+                        <input type="text" name="email">
+                        <p>Password</p>
+                        <input type="password" name="password">
+                        <input type="submit" value="ログイン" class="login-login-btn">
+                        <a href="/list">一覧にもどる</a>
+                    </form>
+                </div>
+            </div>
+        </main>
+    </body>
+</html>
