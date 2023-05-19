@@ -39,4 +39,9 @@ app.get('/', (req, res) => {
     res.render('home.ejs');
 })
 
-app.listen(5000)
+// '/list'がリクエストされたら、list.ejsをレスポンス
+app.get('/list', (req, res) => {
+    res.render('list.ejs');
+})
+
+app.listen(4000)
