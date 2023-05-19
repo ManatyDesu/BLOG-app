@@ -6,6 +6,8 @@ a {
     text-decoration: none;
 }
 
+
+
 /* home.ejs */
 .home-container {
     height: 760px;
@@ -53,6 +55,8 @@ a {
     top: 3px;
 }
 
+
+
 /* list.ejs */
 .list-container {
     font-family: 'Noto Serif JP', serif;
@@ -92,6 +96,8 @@ a {
     position: relative;
     top: 3px;
 }
+
+
 
 /* past_list.ejs, current_list.ejs, future_list.ejs */
 .list-article-container li {
@@ -138,4 +144,66 @@ header-container {
 .header-container a {
     text-decoration: none;
     color: white;
+}
+
+
+
+/* article.ejs */
+.article-body {
+    background-color: whitesmoke;
+}
+
+.article {
+    margin-top: 100px;
+    max-width: 1950px;
+    text-align: center;
+}
+
+.article-container {
+    text-align: left;
+    margin: 0 auto;
+    width: 80%;
+    border: 1.5px solid black;
+    border-radius: 10px;
+    padding: 0px 20px;
+    padding-top: 5px;
+    padding-bottom: 30px;
+}
+
+.article-container p {
+    display: inline;
+}
+
+.article a {
+    display: inline-block;
+    margin-top: 100px;
+    font-size: 20px;
+    padding: 10px 10px;
+    border: 1px solid black;
+    border-radius: 10px;
+    color: rgb(218, 29, 29);
+}
+
+.article a:hover {
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.article-container-container {
+    width: 90%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.limited-content {
+    margin-top: 80px;
+    margin-bottom: -60px;
+    display: flexbox;
+    background-color: antiquewhite;
+    color: red;
+    font-size: 32px;
+}
+
+.limited-login {
+    display: flex;
+    align-items: center;
 }
