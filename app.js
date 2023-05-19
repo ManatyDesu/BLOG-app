@@ -2,6 +2,7 @@ const express = require('express');
 const mysql = require('mysql');
 const session = require('express-session');
 const bcrypt = require('bcrypt');
+const { error } = require('console');
 const app = express();
 
 app.use(express.static('public'));
@@ -36,7 +37,7 @@ app.use((req, res, next) => {
         res.locals.username = 'ゲスト';
         res.locals.isLoggedIn = false;
     } else {
-        res.locals.uername = req.session.username;
+        res.locals.username = req.session.username;
         res.locals.isLoggedIn = true;
     }
     next()
@@ -129,56 +130,52 @@ app.get('/login', (req, res) => {
 // '/login' (post)がリクエストされたら、ユーザのログイン処理を行う。
 // ミドルウェア関数1 -> リクエストされたフォームが空でないか確かめる
 // ミドルウェア関数2 -> ユーザのアカウントがデータベースに登録されているか確認し、ログインの可否を判断する
-app.post('/login',
+app.post('/login', 
     (req, res, next) => {
-        const email = req.body.email;
-        const password = req.body.password;
-        const errors = [];
+    const email = req.body.email;
+    const password = req.body.password;
+    const errors = [];
 
-        if(email==='') {
-            errors.push('メールアドレスが空です');
-        }
-        if(password==='') {
-            errors.push('パスワードが空です');
-        }
-
-        if(errors.length > 0) {
-            res.render('login.ejs', {errors:errors});
-        } else {
-            next();
-        }
-    },
-
-    (req, res) => {
-        const email = req.body.email;
-        const errors = [];
-
-        connection.query(
-            'select * from users where email = ?',
-            [email],
-            (error, results) => {
-                if(results.length > 0) {
-                    const plain = req.body.password
-                    const hash = results[0].password
-
-                    bcrypt.compare(plain, hash, (error, isEqual) => {
-                        if(isEqual) {
-                            req.session.userId = results[0].id;
-                            req.session.username = results[0].username;
-                            res.redirect('/list');
-                        } else {
-                            errors.push('パスワードが違います')
-                            res.render('login.ejs', {errors:errors})
-                        }
-                    })
-                } else {
-                    errors.push('ログインに失敗しました');
-                    res.render('login.ejs', {errors:errors});
-                }
-            }
-        )
+    if(email==='') {
+        errors.push('メールアドレスが空です');
     }
-)
+    if(password==='') {
+        errors.push('パスワードが空です');
+    }
+
+    if(errors.length > 0) {
+        res.render('login.ejs', {errors:errors});
+    } else {
+        next();
+    }
+},
+    (req, res) => {
+    const email = req.body.email;
+    const errors = [];
+    connection.query(
+        'select * from users where email=?',
+        [email],
+        (error, results) => {
+            if(results.length > 0) {
+                const plain = req.body.password
+                const hash = results[0].password
+
+                bcrypt.compare(plain, hash, (error, isEqual) => {
+                    if(isEqual) {
+                        req.session.userId = results[0].id;
+                        req.session.username = results[0].username;
+                        res.redirect('/list');
+                    } else {
+                        res.redirect('/login');
+                    }
+                })
+            } else {
+                errors.push('ログインに失敗しました。');
+                res.render('login.ejs', {errors:errors});
+            }
+        }
+    )
+})
 
 // '/logout'がリクエストされたら、そのユーザのセッション情報を削除する
 app.get('/logout', (req, res) => {
@@ -186,5 +183,74 @@ app.get('/logout', (req, res) => {
         res.redirect('/list');
     })
 })
+
+// '/signup'がリクエストされたら、signup.ejsをレスポンスする
+app.get('/signup', (req, res) => {
+    res.render('signup.ejs', {errors:[]});
+})
+
+// '/signup' (post)がリクエストされたら、ユーザの新規登録を行う。
+// ミドルウェア関数1 -> リクエストされたフォームが空でないか確かめる
+// ミドルウェア関数2 -> ユーザのアカウントがデータベースに存在しているか確認し、新規登録の可否を判断する
+// ミドルウェア関数3 -> ユーザのアカウントをデータベースに登録する
+app.post('/signup', (req, res, next) => {
+        const username = req.body.username;
+        const email = req.body.email;
+        const password = req.body.password;
+        const errors = [];
+
+        if(username==='') {
+            errors.push('ユーザー名が空です');
+        }
+        if(email==='') {
+            errors.push('メールアドレスが空です');
+        }
+        if(password==='') {
+            errors.push('パスワードが空です');
+        }
+
+        if(errors.length>0) {
+            res.render('signup.ejs', {errors:errors});
+        } else {
+            next();
+        }
+    },
+
+    (req, res, next) => {
+        const email = req.body.email;
+        const errors = [];
+
+        connection.query(
+            'select * from users where email=?',
+            [email],
+            (error, results) => {
+                if(results.length>0) {
+                    errors.push('ユーザーアカウントは既に存在しています。');
+                    res.render('signup.ejs', {errors:errors});
+                } else {
+                    next();
+                }
+            }
+        )
+    },
+
+    (req, res) => {
+        const username = req.body.username;
+        const email = req.body.email;
+        const password = req.body.password;
+        bcrypt.hash(password, 10, (error, hash) => {
+            connection.query(
+                'insert into users (username, email, password) values(?, ?, ?)',
+                [username, email, hash],
+                (error, results) => {
+                    req.session.userId = results.insertId;
+                    req.session.username = username;
+                    res.redirect('/list');
+                }
+            );
+        })
+        
+    }
+)
 
 app.listen(4000)
