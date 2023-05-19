@@ -31,6 +31,14 @@ app.use(
 );
 
 app.use((req, res, next) => {
+    // req.session.userIdがundefinedである場合、そのユーザはログインしていない。
+    if (req.session.userId === undefined) {
+        res.locals.username = 'ゲスト';
+        res.locals.isLoggedIn = false;
+    } else {
+        res.locals.uername = req.session.username;
+        res.locals.isLoggedIn = true;
+    }
     next()
 })
 
@@ -111,6 +119,72 @@ app.get('/article_future/:id', (req, res) => {
             res.render('article.ejs', { article: results[0] });
         }
     )
+})
+
+// '/login'がリクエストされたらlogin.ejsをレスポンス
+app.get('/login', (req, res) => {
+    res.render('login.ejs', {errors:[]});
+})
+
+// '/login' (post)がリクエストされたら、ユーザのログイン処理を行う。
+// ミドルウェア関数1 -> リクエストされたフォームが空でないか確かめる
+// ミドルウェア関数2 -> ユーザのアカウントがデータベースに登録されているか確認し、ログインの可否を判断する
+app.post('/login',
+    (req, res, next) => {
+        const email = req.body.email;
+        const password = req.body.password;
+        const errors = [];
+
+        if(email==='') {
+            errors.push('メールアドレスが空です');
+        }
+        if(password==='') {
+            errors.push('パスワードが空です');
+        }
+
+        if(errors.length > 0) {
+            res.render('login.ejs', {errors:errors});
+        } else {
+            next();
+        }
+    },
+
+    (req, res) => {
+        const email = req.body.email;
+        const errors = [];
+
+        connection.query(
+            'select * from users where email = ?',
+            [email],
+            (error, results) => {
+                if(results.length > 0) {
+                    const plain = req.body.password
+                    const hash = results[0].password
+
+                    bcrypt.compare(plain, hash, (error, isEqual) => {
+                        if(isEqual) {
+                            req.session.userId = results[0].id;
+                            req.session.username = results[0].username;
+                            res.redirect('/list');
+                        } else {
+                            errors.push('パスワードが違います')
+                            res.render('login.ejs', {errors:errors})
+                        }
+                    })
+                } else {
+                    errors.push('ログインに失敗しました');
+                    res.render('login.ejs', {errors:errors});
+                }
+            }
+        )
+    }
+)
+
+// '/logout'がリクエストされたら、そのユーザのセッション情報を削除する
+app.get('/logout', (req, res) => {
+    req.session.destroy((error) => {
+        res.redirect('/list');
+    })
 })
 
 app.listen(4000)
