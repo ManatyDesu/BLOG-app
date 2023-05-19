@@ -1,5 +1,15 @@
 <header>
     <div class="header-container">
         <a href="/list" class="header-home"><i class="fa-solid fa-house"></i></a>
+        <%# still... %>
+        <p>ようこそ、<%= locals.username %>さん</p>
+        <ul>
+            <% if (locals.isLoggedIn) {%>
+                <li><a href="/logout">ログアウト</a></li>
+            <% } else { %>
+                <li><a href="/signup">新規登録</a></li>
+                <li><a href="/login">ログイン</a></li>
+            <% } %>
+        </ul>
     </div>
 </header>
