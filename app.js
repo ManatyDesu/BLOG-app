@@ -29,3 +29,14 @@ app.use(
         saveUninitialized: false,
     })
 );
+
+app.use((req, res, next) => {
+    next()
+})
+
+// '/'がリクエストされたら、home.ejsをレスポンス
+app.get('/', (req, res) => {
+    res.render('home.ejs');
+})
+
+app.listen(5000)
