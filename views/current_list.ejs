@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>BLOG</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.4.0/css/all.css">
+        <link rel="stylesheet" href="/css/style.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@200&display=swap" rel="stylesheet">
+    </head>
+    <body>
+        <%- include('header'); %>
+        <main>
+            <div class="main-container"></div>
+            <ul class="list-article-container">
+                <% articles.forEach((article) => { %>
+                    <li class="li-container">
+                        <% if(article.category === 'limited') {%>
+                            <p class="limited-article">会員限定</p>
+                        <% } %>
+                        <h2><%= article.title %></h2>
+                        <p><%= article.summary %></p>
+                        <a href="/article_current/<%= article.id %>">続きを読む</a>
+                    </li>
+                <% }) %>
+            </ul>
+        </main>
+    </body>
+</html>
