@@ -180,4 +180,11 @@ app.post('/login',
     }
 )
 
+// '/logout'がリクエストされたら、そのユーザのセッション情報を削除する
+app.get('/logout', (req, res) => {
+    req.session.destroy((error) => {
+        res.redirect('/list');
+    })
+})
+
 app.listen(4000)
