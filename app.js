@@ -89,7 +89,7 @@ app.get('/article_past/:id', (req, res) => {
     )
 })
 
-// current_list.ejsから'/argicle_past/:id'をリクエストされた時に、ariticle.ejsをレスポンス
+// current_list.ejsから'/argicle_current/:id'をリクエストされた時に、ariticle.ejsをレスポンス
 app.get('/article_current/:id', (req, res) => {
     const id = req.params.id;
     connection.query(
@@ -101,7 +101,7 @@ app.get('/article_current/:id', (req, res) => {
     )
 })
 
-// future_list.ejsから'/argicle_past/:id'をリクエストされた時に、ariticle.ejsをレスポンス
+// future_list.ejsから'/argicle_future/:id'をリクエストされた時に、ariticle.ejsをレスポンス
 app.get('/article_future/:id', (req, res) => {
     const id = req.params.id;
     connection.query(
