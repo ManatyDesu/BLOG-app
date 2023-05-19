@@ -52,3 +52,43 @@ a {
     position: relative;
     top: 3px;
 }
+
+/* list.ejs */
+.list-container {
+    font-family: 'Noto Serif JP', serif;
+    height: 760px;
+    text-align: center;
+    margin: 0 auto;
+    background-color: black;
+    color: whitesmoke;
+}
+
+.list-x {
+    margin-top: 200px;
+    width: 33.3%;
+    height: 300px;
+    display: block;
+    float: left;
+    text-align: center;
+}
+
+.list-x:hover {
+    background-color: rgba(207, 71, 96, 0.3);
+    transition: all 1.5s;
+    border-radius: 10px;
+}
+
+.list-btn {
+    color: rgba(207, 71, 96, 0.8);
+    margin-top: 30px;
+    margin-bottom: 5px;
+}
+
+.list-btn:hover {
+    border: 1.5px solid whitesmoke; 
+}
+
+.list-btn:active {
+    position: relative;
+    top: 3px;
+}
