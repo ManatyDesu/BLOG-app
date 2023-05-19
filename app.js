@@ -187,4 +187,81 @@ app.get('/logout', (req, res) => {
     })
 })
 
+// '/signup'がリクエストされたら、signup.ejsをレスポンスする
+app.get('/signup', (req, res) => {
+    res.render('signup.ejs', {errors:[]});
+})
+
+// '/signup' (post)がリクエストされたら、ユーザの新規登録を行う。
+// ミドルウェア関数1 -> リクエストされたフォームが空でないか確かめる
+// ミドルウェア関数2 -> ユーザのアカウントがデータベースに存在しているか確認し、新規登録の可否を判断する
+// ミドルウェア関数3 -> ユーザのアカウントをデータベースに登録する
+app.post('/signup',
+    (req, res, next) => {
+        const username = req.body.username;
+        const email = req.body.email;
+        const password = req.body.password;
+        const errors = [];
+
+        if(username==='') {
+            errors.push('ユーザー名が空です');
+        }
+        if(email==='') {
+            errors.push('メールアドレスが空です');
+        }
+        if(password==='') {
+            errors.push('パスワードが空です');
+        }
+
+        if(errors.length>0) {
+            res.render('signup.ejs', {errors:errors});
+        } else {
+            next();
+        }
+    },
+
+    (req, res, next) => {
+        const email = req.body.email;
+        const errors = [];
+
+        connection.query(
+            'select * from users where email=?',
+            [email],
+            (error, results) => {
+                if(results.length>0) {
+                    errors.push('ユーザーアカウントは既に存在しています。');
+                    res.render('signup.ejs', {errors:errors});
+                } else {
+                    next();
+                }
+            }
+        )
+    },
+
+    (req, res) => {
+        const username = req.body.username;
+        const email = req.body.email;
+        const password = req.body.password;
+
+        // bcryptを使ってpasswordをハッシュ化している。
+        bcrypt.hash(password, 10, (error, hash) => {
+            connection.query(
+                'insert into users (username, email, password) values(?, ?, ?)',
+                [username, email, hash],
+                (error, results) => {
+                    req.session.username = username;
+                }
+            );
+            connection.query(
+                'select id from users where = ?',
+                [email],
+                (error, results) => {
+                    req.session.userId = results[0].id;
+                    res.redirect('/list');
+                }
+            )
+        });
+    }
+)
+
 app.listen(4000)
