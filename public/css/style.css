@@ -92,3 +92,31 @@ a {
     position: relative;
     top: 3px;
 }
+
+/* past_list.ejs, current_list.ejs, future_list.ejs */
+.list-article-container li {
+    height: 200px;
+    text-align: left;
+    list-style: none;
+    border: 2px solid rgba(207, 71, 96, 0.5);
+    padding: 10px 20px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    border-radius: 20px;
+}
+
+.limited-article {
+    margin-bottom: -25px;
+    margin-top: 10px;
+    display: inline-block;
+    padding: 5px 5px;
+    border: 1px solid rgb(218, 29, 29);
+    font-size: 16px;
+    color: rgb(218, 29, 29);
+    border-radius: 5px;
+}
+
+.li-container h2 {
+    display: block;
+    padding-top: 20px;
+}
