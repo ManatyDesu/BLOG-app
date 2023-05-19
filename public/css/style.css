@@ -55,6 +55,51 @@ a {
     top: 3px;
 }
 
+.li-container h2 {
+    display: block;
+    padding-top: 20px;
+}
+
+
+/* header.ejs */
+.header-container {
+    width: 96%;
+    display: block;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    margin: 0 auto;
+    height: 60px;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    position: fixed;
+}
+.header-home {
+    float: left;
+    margin-top: 15px;
+    margin-right: 15px;
+}
+
+.header-container p {
+    float: left;
+}
+
+.header-container li {
+    float: right;
+    margin-right: 30px;
+    margin-bottom: 20px;
+}
+
+.header-container li {
+    list-style: none;
+}
+
+.header-container a {
+    text-decoration: none;
+    color: white;
+}
+
 
 
 /* list.ejs */
@@ -122,29 +167,6 @@ a {
     border-radius: 5px;
 }
 
-.li-container h2 {
-    display: block;
-    padding-top: 20px;
-}
-
-header-container {
-    width: 96%;
-    display: block;
-    flex-wrap: nowrap;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 20px;
-    margin: 0 auto;
-    height: 60px;
-    background-color: rgba(0, 0, 0, 0.8);
-    color: white;
-    position: fixed;
-}
-
-.header-container a {
-    text-decoration: none;
-    color: white;
-}
 
 
 
@@ -206,4 +228,46 @@ header-container {
 .limited-login {
     display: flex;
     align-items: center;
+}
+
+
+
+/* login.ejs */
+.login-container {
+    width: auto;
+    height: 600px;
+}
+
+.login-form {
+    padding: 100px 100px;
+    display: block;
+    margin: 0 auto;
+    width: 40%;
+    text-align: center;
+    margin-top: 70px;
+}
+
+.login-form a {
+    color: black;
+    border: 1px solid black;
+    display: block;
+    width: 100px;
+    height: 30px;
+    margin: 0 auto;
+    margin-top: 60px;
+    border-radius: 10px;
+    padding: 5px 5px;
+}
+
+.login-form input {
+    width: 200px;
+    height: 30px;
+}
+
+.login-login-btn {
+    display: block;
+    width: 100px;
+    height: 30px;
+    margin: 0 auto;
+    margin-top: 30px;
 }
