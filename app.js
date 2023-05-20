@@ -8,11 +8,12 @@ const app = express();
 app.use(express.static('public'));
 app.use(express.urlencoded({extended: false}));
 
+// こちらの値はご自身のデータベースの値を当てはめてください
 const connection = mysql.createConnection({
-    host: "127.0.0.1",
-    user: 'root',
-    password: 'Manaty14',
-    database: 'blog'
+    host: "",
+    user: '',
+    password: '',
+    database: ''
 })
 
 connection.connect((err) => {
