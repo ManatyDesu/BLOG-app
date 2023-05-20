@@ -8,7 +8,8 @@
   - [新規登録](#新規登録)
 
 ## 記事の閲覧
-<img src='images/home.jpg'>
+1. 「閲覧する」ボタンを押す。
+<img src='images/home.jpg' width='90%'>
 
 ## ログイン
 
