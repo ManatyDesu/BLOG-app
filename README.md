@@ -1,4 +1,6 @@
 <h1>BLOG app</h1>
+このBLOG appは、記事の閲覧や新規登録、ログイン、ログアウトの機能を持っています。また、ログインしていないと見れない限定記事も作りました。使用した言語は、JavaScript、Node.js、EJS、CSS、SQLです。
+
 <h3>- 目次 -</h3>
 
 - [BLOG appの使い方](#blog-appの使い方)
