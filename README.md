@@ -9,7 +9,7 @@
 
 ## 記事の閲覧
 1. 「閲覧する」ボタンを押す。
-<img src='images/home.jpg' width='90%'>
+<img src='images/home.jpg'>
 
 ## ログイン
 
