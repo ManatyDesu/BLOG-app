@@ -145,6 +145,11 @@ a {
 
 
 /* past_list.ejs, current_list.ejs, future_list.ejs */
+.main-container {
+    width: 1384px;
+    height: 60px;
+}
+
 .list-article-container li {
     height: 200px;
     text-align: left;
